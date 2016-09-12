@@ -26,6 +26,15 @@ public class EchoClient extends Thread {
     private List<Observer> observers = new ArrayList<>();
     private String[] clientList;
     private boolean isLoggedIn = false;
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public boolean isLoggedIn() {
         return isLoggedIn;
@@ -92,7 +101,6 @@ public class EchoClient extends Thread {
                 splitComma[0] = splitColon[1];
             }
             clientList = splitComma;
-
             jList1.setModel(new AbstractListModel<String>() {
                 @Override
                 public int getSize() {

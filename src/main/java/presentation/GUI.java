@@ -118,14 +118,14 @@ public class GUI extends javax.swing.JFrame implements Observer {
 
         jPanel3.setMinimumSize(new java.awt.Dimension(190, 188));
 
-        jTextField1.setText("Port");
+        jTextField1.setText("8080");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("IP");
+        jTextField2.setText("localhost");
 
         login.setText("Login");
         login.addActionListener(new java.awt.event.ActionListener() {
@@ -264,6 +264,7 @@ public class GUI extends javax.swing.JFrame implements Observer {
     private void jTextArea3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea3KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER && client.isLoggedIn()) {
             client.send(ProtocolStrings.SENDMESSAGE + getSelectedUsers() + jTextArea3.getText());
+            jTextArea1.append("Me: "+jTextArea3.getText()+"\n");
         }
     }//GEN-LAST:event_jTextArea3KeyPressed
 
@@ -278,10 +279,10 @@ public class GUI extends javax.swing.JFrame implements Observer {
                 } else {
                     client.wakeUp();
                 }
-
                 client.send(ProtocolStrings.LOGIN + jTextField3.getText());
                 login.setText("Logout");
                 jTextField3.setEditable(false);
+                client.setUsername(jTextField3.getText());
             } catch (IOException ex) {
                 Logger.getLogger(Log.LOG_NAME).log(Level.SEVERE, null, ex);
             }
@@ -301,6 +302,7 @@ public class GUI extends javax.swing.JFrame implements Observer {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(client.isLoggedIn()){
             client.send(ProtocolStrings.SENDMESSAGE + getSelectedUsers() + jTextArea3.getText());
+            jTextArea1.append("Me: "+jTextArea3.getText()+"\n");
         }
         jTextArea3.setText("");
         jTextArea3.requestFocus();
@@ -428,7 +430,7 @@ public class GUI extends javax.swing.JFrame implements Observer {
     private void init() {
         client = new EchoClient();
         client.registerObserver(this);
-        jTextArea1.setEditable(false);
+        //jTextArea1.setEditable(false);
         jTextArea1.setFont(new Font("Verdana", Font.BOLD, 15));
         jTextArea3.setFont(new Font("Verdana", Font.BOLD, 15));
         jList1.setFont(new Font("Verdana", Font.BOLD, 15));
